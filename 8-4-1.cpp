@@ -46,3 +46,42 @@ public:
         return count;
     }
 };
+
+//https://www.nowcoder.com/questionTerminal/22f9d7dd89374b6c8289e44237c70447
+class Solution {
+public:
+    int evalRPN(vector<string> &tokens) {
+       stack<int> st;
+       for(int i=0;i<tokens.size();++i)
+       {
+           if(tokens[i]=="+"||tokens[i]=="-"||tokens[i]=="*"||tokens[i]=="/")
+           {
+               if(st.size()<2)
+                   return 0;
+               int a,b,res;
+               b=st.top();
+               st.pop();
+               a=st.top();
+               st.pop();
+               if(tokens[i]=="+")
+                   res=a+b;
+               if(tokens[i]=="-")
+                   res=a-b;
+               if(tokens[i]=="*")
+                   res=a*b;
+               if(tokens[i]=="/")
+                   res=a/b;
+               st.push(res);
+           }
+        else
+        {
+            int tmp=atoi(tokens[i].c_str());
+            st.push(tmp);
+        }
+       }
+        if(st.size()==1)
+            return st.top();
+        else
+            return 0;
+    }
+};
